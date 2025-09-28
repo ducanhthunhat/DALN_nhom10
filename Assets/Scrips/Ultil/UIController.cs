@@ -5,9 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System;
 
 public class UIController : MonoBehaviour
 {
+    public static UIController Instance { get; private set; }
     [SerializeField] private TMP_Text waveText;
     [SerializeField] private TMP_Text livesText;
     [SerializeField] private TMP_Text resourcesText;
@@ -22,6 +24,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button speed1Button;
     [SerializeField] private Button speed2Button;
     [SerializeField] private Button speed3Button;
+    [SerializeField] private Button pauseButton;
+    [SerializeField] private Button nextLevelButton;
     [SerializeField] private Color normalButtonColor = Color.white;
     [SerializeField] private Color selectedButtonColor = Color.green;
     [SerializeField] private Color normalTextColor = Color.black;
@@ -30,6 +34,20 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_Text objectiveText;
     private bool _isGamePaused = false;
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject missionCompletePanel;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
     private void OnEnable()
     {
         Spawner.OnWaveChanged += UpdateWaveText;
@@ -38,6 +56,7 @@ public class UIController : MonoBehaviour
         Platform.OnPlatformClicked += HandlePlatformClicked;
         TowerCard.OnTowerSelected += HandleTowerSelected;
         SceneManager.sceneLoaded += OnSceneLoaded;
+        Spawner.OnMissionCompleted += ShowMissionCompletePanel;
     }
     private void OnDisable()
     {
@@ -47,7 +66,7 @@ public class UIController : MonoBehaviour
         Platform.OnPlatformClicked -= HandlePlatformClicked;
         TowerCard.OnTowerSelected -= HandleTowerSelected;
         SceneManager.sceneLoaded -= OnSceneLoaded;
-
+        Spawner.OnMissionCompleted -= ShowMissionCompletePanel;
 
     }
     private void Start()
@@ -147,7 +166,7 @@ public class UIController : MonoBehaviour
     private void SetGameSpeed(float timeScale)
     {
         HighlightSelectedSpeedButton(timeScale);
-        GameManager.Instance.SetTimeScale(timeScale);
+        GameManager.Instance.SetGameSpeed(timeScale);
     }
 
     private void UpdateButtonVisual(Button button, bool isSelected)
@@ -188,9 +207,7 @@ public class UIController : MonoBehaviour
     }
     public void RestartGame()
     {
-        GameManager.Instance.SetTimeScale(1f);
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.buildIndex);
+        LevelManager.Instance.LoadLevel(LevelManager.Instance.CurrentLevel);
     }
 
     public void QuitGame()
@@ -209,13 +226,90 @@ public class UIController : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        StartCoroutine(ShowObjectiveText("Defend your base!"));
+        Camera mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        Canvas canvas = GetComponent<Canvas>();
+        canvas.worldCamera = mainCamera;
+
+        HidePanel();
+        if (scene.name == "MainMenu")
+        {
+            HideUI();
+            return;
+        }
+        else
+        {
+            ShowUI();
+            StartCoroutine(ShowObjectiveText($"Survive {LevelManager.Instance.CurrentLevel.wavesToWin} waves"));
+        }
     }
     private IEnumerator ShowObjectiveText(string message)
     {
-        objectiveText.text = $"Survive XXX waves";
+        objectiveText.text = $"Survive {LevelManager.Instance.CurrentLevel.wavesToWin} waves";
         objectiveText.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         objectiveText.gameObject.SetActive(false);
+    }
+
+    private void ShowMissionCompletePanel()
+    {
+        UpdateNextLevelButton();
+        missionCompletePanel.SetActive(true);
+        GameManager.Instance.SetTimeScale(0f);
+    }
+
+    public void EnterEndlessMode()
+    {
+        missionCompletePanel.SetActive(false);
+        GameManager.Instance.SetTimeScale(GameManager.Instance.GameSpeed);
+        Spawner.Instance.EnableEndlessMode();
+        StartCoroutine(ShowObjectiveText("Endless Mode Activated!"));
+    }
+    private void HideUI()
+    {
+        HidePanel();
+        waveText.gameObject.SetActive(false);
+        livesText.gameObject.SetActive(false);
+        resourcesText.gameObject.SetActive(false);
+        warningText.gameObject.SetActive(false);
+        speed1Button.gameObject.SetActive(false);
+        speed2Button.gameObject.SetActive(false);
+        speed3Button.gameObject.SetActive(false);
+        pauseButton.gameObject.SetActive(false);
+    }
+
+    private void ShowUI()
+    {
+        waveText.gameObject.SetActive(true);
+        livesText.gameObject.SetActive(true);
+        resourcesText.gameObject.SetActive(true);
+        speed1Button.gameObject.SetActive(true);
+        speed2Button.gameObject.SetActive(true);
+        speed3Button.gameObject.SetActive(true);
+        pauseButton.gameObject.SetActive(true);
+    }
+    private void HidePanel()
+    {
+        pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        missionCompletePanel.SetActive(false);
+    }
+
+    public void LoadNextLevel()
+    {
+        var levelManager = LevelManager.Instance;
+        int currentLevelIndex = Array.IndexOf(levelManager.allLevels, levelManager.CurrentLevel);
+        int nextIndex = currentLevelIndex + 1;
+        if (nextIndex < levelManager.allLevels.Length)
+        {
+            missionCompletePanel.SetActive(false);
+            levelManager.LoadLevel(levelManager.allLevels[nextIndex]);
+        }
+    }
+    private void UpdateNextLevelButton()
+    {
+        var levelManager = LevelManager.Instance;
+        int currentIndex = Array.IndexOf(levelManager.allLevels, levelManager.CurrentLevel);
+        nextLevelButton.interactable = currentIndex + 1 < levelManager.allLevels.Length;
+
     }
 }
