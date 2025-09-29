@@ -7,4 +7,5 @@ public class WaveData : ScriptableObject
     public EnemyType enemyType;
     public int enemiesPerWave;
     public float spawnInterval;
+    public AudioClip waveStartClip;
 }

@@ -35,6 +35,8 @@ public class UIController : MonoBehaviour
     private bool _isGamePaused = false;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject missionCompletePanel;
+    private bool _missionCompleteSoundPlayed = false;
+    [SerializeField] private ParticleSystem missionCompleteParticles;
 
     private void Awake()
     {
@@ -71,9 +73,21 @@ public class UIController : MonoBehaviour
     }
     private void Start()
     {
-        speed1Button.onClick.AddListener(() => SetGameSpeed(0.2f));
-        speed2Button.onClick.AddListener(() => SetGameSpeed(1f));
-        speed3Button.onClick.AddListener(() => SetGameSpeed(2f));
+        speed1Button.onClick.AddListener(() =>
+        {
+            SetGameSpeed(0.2f);
+            AudioManager.Instance.PlaySpeedSlow();
+        });
+        speed2Button.onClick.AddListener(() =>
+        {
+            SetGameSpeed(1f);
+            AudioManager.Instance.PlaySpeedNormal();
+        });
+        speed3Button.onClick.AddListener(() =>
+        {
+            SetGameSpeed(2f);
+            AudioManager.Instance.PlaySpeedFast();
+        });
 
         HighlightSelectedSpeedButton(GameManager.Instance.GameSpeed);
     }
@@ -112,6 +126,7 @@ public class UIController : MonoBehaviour
         Platform.towerPanelOpen = true;
         GameManager.Instance.SetTimeScale(0f);
         PopulateTowerCards();
+        AudioManager.Instance.PlayPanelToggle();
     }
 
     public void HideTowerPanel()
@@ -146,6 +161,7 @@ public class UIController : MonoBehaviour
         }
         if (GameManager.Instance.Resources >= towerData.cost)
         {
+            AudioManager.Instance.PlayTowerPlace();
             GameManager.Instance.SpendResources(towerData.cost);
             _currentPlatform.PlaceTower(towerData);
         }
@@ -159,6 +175,7 @@ public class UIController : MonoBehaviour
     private IEnumerator ShowNoWarningMessage(string message)
     {
         warningText.text = message;
+        AudioManager.Instance.PlayWarning();
         warningText.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         warningText.gameObject.SetActive(false);
@@ -197,17 +214,20 @@ public class UIController : MonoBehaviour
             pausePanel.SetActive(false);
             _isGamePaused = false;
             GameManager.Instance.SetTimeScale(GameManager.Instance.GameSpeed);
+            AudioManager.Instance.PlayUnpause();
         }
         else
         {
             pausePanel.SetActive(true);
             _isGamePaused = true;
             GameManager.Instance.SetTimeScale(0f);
+            AudioManager.Instance.PlayPause();
         }
     }
     public void RestartGame()
     {
         LevelManager.Instance.LoadLevel(LevelManager.Instance.CurrentLevel);
+        HighlightSelectedSpeedButton(1f);
     }
 
     public void QuitGame()
@@ -223,6 +243,7 @@ public class UIController : MonoBehaviour
     {
         GameManager.Instance.SetTimeScale(0f);
         gameOverPanel.SetActive(true);
+        AudioManager.Instance.PlayGameOver();
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -231,6 +252,8 @@ public class UIController : MonoBehaviour
         canvas.worldCamera = mainCamera;
 
         HidePanel();
+        _isGamePaused = false;
+        _missionCompleteSoundPlayed = false;
         if (scene.name == "MainMenu")
         {
             HideUI();
@@ -239,6 +262,7 @@ public class UIController : MonoBehaviour
         else
         {
             ShowUI();
+            HighlightSelectedSpeedButton(1f);
             StartCoroutine(ShowObjectiveText($"Survive {LevelManager.Instance.CurrentLevel.wavesToWin} waves"));
         }
     }
@@ -252,9 +276,16 @@ public class UIController : MonoBehaviour
 
     private void ShowMissionCompletePanel()
     {
-        UpdateNextLevelButton();
-        missionCompletePanel.SetActive(true);
-        GameManager.Instance.SetTimeScale(0f);
+        if (!_missionCompleteSoundPlayed)
+        {
+            _missionCompleteSoundPlayed = true;
+            UpdateNextLevelButton();
+            missionCompletePanel.SetActive(true);
+            GameManager.Instance.SetTimeScale(0f);
+            AudioManager.Instance.PlayMissionComplete();
+            missionCompleteParticles.Play();
+        }
+
     }
 
     public void EnterEndlessMode()
@@ -301,7 +332,6 @@ public class UIController : MonoBehaviour
         int nextIndex = currentLevelIndex + 1;
         if (nextIndex < levelManager.allLevels.Length)
         {
-            missionCompletePanel.SetActive(false);
             levelManager.LoadLevel(levelManager.allLevels[nextIndex]);
         }
     }

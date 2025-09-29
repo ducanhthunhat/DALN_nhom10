@@ -48,8 +48,13 @@ public class Tower : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            bool _wasEmpty = _enemiesInRange.Count == 0;
             Enemy enemy = collision.GetComponent<Enemy>();
             _enemiesInRange.Add(enemy);
+            if (_wasEmpty && data.attackSound != null)
+            {
+                AudioManager.Instance.PlaySound(data.attackSound);
+            }
         }
     }
 
