@@ -213,52 +213,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b38c675e915eec84cbe7e93b109d9483, type: 3}
---- !u!1 &50150611
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 50150613}
-  - component: {fileID: 50150612}
-  m_Layer: 0
-  m_Name: KaijuPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &50150612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50150611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1aa181b0131dd840b51ef5b86ea91cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 844103139306174927, guid: 5016124fb57b4e540b13e901f15d57d0, type: 3}
-  poolSize: 5
---- !u!4 &50150613
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50150611}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.13000011, y: 0.029999971, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1061452063}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &62859026 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5768915151324807957, guid: 1272e1ca43675f24da34783bcb491409, type: 3}
@@ -1119,52 +1073,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5768915151324807957, guid: 1272e1ca43675f24da34783bcb491409, type: 3}
   m_PrefabInstance: {fileID: 1825655497}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &592234612
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 592234614}
-  - component: {fileID: 592234613}
-  m_Layer: 0
-  m_Name: OrcPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &592234613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 592234612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1aa181b0131dd840b51ef5b86ea91cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 844103139306174927, guid: a0f9d17379b78c24597167d3bf9a8498, type: 3}
-  poolSize: 5
---- !u!4 &592234614
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 592234612}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.6080976, y: 3.0386019, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1061452063}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &599895543
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1792,60 +1700,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5768915151324807957, guid: 1272e1ca43675f24da34783bcb491409, type: 3}
   m_PrefabInstance: {fileID: 1371639598}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1061452061
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1061452063}
-  - component: {fileID: 1061452064}
-  m_Layer: 0
-  m_Name: Spawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1061452063
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1061452061}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.81, y: 1.7, z: 0.040346585}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 592234614}
-  - {fileID: 1604311328}
-  - {fileID: 50150613}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1061452064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1061452061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b7dae705dffc03408393dfa7779086c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waves:
-  - {fileID: 11400000, guid: 5c370aada169460468e5fd53e967e7ab, type: 2}
-  - {fileID: 11400000, guid: 272550c3a82f05e46b1a8709cdc75f6e, type: 2}
-  - {fileID: 11400000, guid: 47d1e5731ccb9b44d9ea462c2d4628c3, type: 2}
-  orcPool: {fileID: 592234613}
-  dragonPool: {fileID: 1604311327}
-  kaijuPool: {fileID: 50150612}
 --- !u!4 &1079884680 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5768915151324807957, guid: 1272e1ca43675f24da34783bcb491409, type: 3}
@@ -2614,52 +2468,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b38c675e915eec84cbe7e93b109d9483, type: 3}
---- !u!1 &1604311326
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1604311328}
-  - component: {fileID: 1604311327}
-  m_Layer: 0
-  m_Name: DragonPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1604311327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604311326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1aa181b0131dd840b51ef5b86ea91cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 844103139306174927, guid: a891150170716364198a2d9d4fc94a0b, type: 3}
-  poolSize: 5
---- !u!4 &1604311328
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604311326}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.13000011, y: -0.099999905, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1061452063}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1635355481
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3538,5 +3346,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 498105245}
   - {fileID: 207514646}
-  - {fileID: 1061452063}
   - {fileID: 1726960156}

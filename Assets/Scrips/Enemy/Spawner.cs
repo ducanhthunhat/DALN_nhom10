@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour
 {
@@ -27,6 +29,9 @@ public class Spawner : MonoBehaviour
     private float _waveCooldown;
     private bool _isBetweenWaves = false;
     private bool _isEndlessMode = false;
+    private bool _isGamePlayScene = false;
+
+    private Path _currentPath;
 
     private void Awake()
     {
@@ -40,6 +45,7 @@ public class Spawner : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -51,22 +57,25 @@ public class Spawner : MonoBehaviour
     {
         Enemy.OnEnemyReachedEnd += HandleEnemyReachedEnd;
         Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
         Enemy.OnEnemyReachedEnd -= HandleEnemyReachedEnd;
         Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
     }
 
     private void Start()
     {
         OnWaveChanged?.Invoke(_waveCounter);
-        AudioManager.Instance.PlaySound(CurrentWave.waveStartClip);
     }
 
     void Update()
     {
+        if (!_isGamePlayScene) return;
         if (_isBetweenWaves)
         {
             _waveCooldown -= Time.deltaTime;
@@ -117,7 +126,7 @@ public class Spawner : MonoBehaviour
 
             float healthMultiplier = 1f + (_waveCounter * 0.4f);
             Enemy enemy = spawnedObject.GetComponent<Enemy>();
-            enemy.Initialize(healthMultiplier);
+            enemy.Initialize(_currentPath, healthMultiplier);
             spawnedObject.SetActive(true);
         }
     }
@@ -134,5 +143,34 @@ public class Spawner : MonoBehaviour
     public void EnableEndlessMode()
     {
         _isEndlessMode = true;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        _isGamePlayScene = scene.name != "MainMenu";
+        ResetWaveState();
+        if (!_isGamePlayScene) return;
+        _currentPath = GameObject.Find("Path1").GetComponent<Path>();
+        AudioManager.Instance.PlaySound(CurrentWave.waveStartClip);
+        if (LevelManager.Instance.CurrentLevel != null)
+        {
+            transform.position = LevelManager.Instance.CurrentLevel.initialSpawnPosition;
+        }
+    }
+    private void ResetWaveState()
+    {
+        _currentWaveIndex = 0;
+        _waveCounter = 0;
+        _spawnCounter = 0;
+        _enemiesRemoved = 0;
+        _spawnTimer = 0f;
+        _isBetweenWaves = false;
+
+        foreach (var pool in _poolDictionary.Values)
+        {
+            if (pool != null)
+            {
+                pool.ResetToPool();
+            }
+        }
     }
 }
