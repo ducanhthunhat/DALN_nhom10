@@ -10,10 +10,10 @@ public class Spawner : MonoBehaviour
     public static event Action<int> OnWaveChanged;
     public static event Action OnMissionCompleted;
 
-    [SerializeField] private WaveData[] waves;
+    private WaveData[] _waves => LevelManager.Instance.CurrentLevel.waves;
     private int _currentWaveIndex = 0;
     private int _waveCounter = 0;
-    private WaveData CurrentWave => waves[_currentWaveIndex];
+    private WaveData CurrentWave => _waves[_currentWaveIndex];
 
     private float _spawnTimer;
     private float _spawnCounter;
@@ -22,6 +22,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] private ObjectPooler orcPool;
     [SerializeField] private ObjectPooler dragonPool;
     [SerializeField] private ObjectPooler kaijuPool;
+    [SerializeField] private ObjectPooler squidCritterPool;
+    [SerializeField] private ObjectPooler squidMorphPool;
+    [SerializeField] private ObjectPooler squidBossPool;
+    [SerializeField] private ObjectPooler locustMorphPool;
+    [SerializeField] private ObjectPooler locustBossPool;
 
     private Dictionary<EnemyType, ObjectPooler> _poolDictionary;
 
@@ -40,6 +45,12 @@ public class Spawner : MonoBehaviour
             { EnemyType.Orc, orcPool},
             { EnemyType.Dragon, dragonPool},
             { EnemyType.Kaiju, kaijuPool},
+            { EnemyType.Squid_critter, squidCritterPool},
+            { EnemyType.Squid_morph, squidMorphPool},
+            { EnemyType.Squid_boss, squidBossPool},
+            {EnemyType.Locust_morph, locustMorphPool},
+            {EnemyType.Locust_boss, locustBossPool},
+
         };
 
         if (Instance == null)
@@ -82,7 +93,7 @@ public class Spawner : MonoBehaviour
             if (_waveCooldown <= 0f)
             {
 
-                _currentWaveIndex = (_currentWaveIndex + 1) % waves.Length;
+                _currentWaveIndex = (_currentWaveIndex + 1) % _waves.Length;
                 _waveCounter++;
                 OnWaveChanged?.Invoke(_waveCounter);
                 AudioManager.Instance.PlaySound(CurrentWave.waveStartClip);
@@ -160,10 +171,12 @@ public class Spawner : MonoBehaviour
     {
         _currentWaveIndex = 0;
         _waveCounter = 0;
+        OnWaveChanged?.Invoke(_waveCounter);
         _spawnCounter = 0;
         _enemiesRemoved = 0;
         _spawnTimer = 0f;
         _isBetweenWaves = false;
+        _isEndlessMode = false;
 
         foreach (var pool in _poolDictionary.Values)
         {

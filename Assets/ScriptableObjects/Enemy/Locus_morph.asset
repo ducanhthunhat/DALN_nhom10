@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efb7d59f4b41de342ab7032ea9a7c3fa, type: 3}
-  m_Name: Wave1
+  m_Script: {fileID: 11500000, guid: 70b9603739344894c99e9a31d1b657f5, type: 3}
+  m_Name: Locus_morph
   m_EditorClassIdentifier: 
-  enemyType: 0
-  enemiesPerWave: 15
-  spawnInterval: 0.8
-  waveStartClip: {fileID: 8300000, guid: a3178f30fbebcee4393efb3aa487f3e8, type: 3}
+  lives: 10
+  damage: 3
+  minSpeed: 0.5
+  maxSpeed: 3
+  resourceReward: 5

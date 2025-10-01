@@ -7,6 +7,11 @@ public class Platform : MonoBehaviour
     public static event Action<Platform> OnPlatformClicked;
     [SerializeField] private LayerMask platformLayerMask;
     public static bool towerPanelOpen { get; set; } = false;
+    private SpriteRenderer _spriteRenderer;
+    void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     private void Update()
     {
         if (towerPanelOpen || Time.timeScale == 0f) return;
@@ -28,5 +33,10 @@ public class Platform : MonoBehaviour
     public void PlaceTower(TowerData data)
     {
         Instantiate(data.prefab, transform.position, Quaternion.identity, transform);
+
+        if (_spriteRenderer != null)
+        {
+            _spriteRenderer.enabled = false;
+        }
     }
 }

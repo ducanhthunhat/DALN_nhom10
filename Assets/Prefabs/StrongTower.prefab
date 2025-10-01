@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5916644166682937646}
   - component: {fileID: 2995926733103373398}
   - component: {fileID: 2932471900142868713}
+  - component: {fileID: -6461729012792392919}
   m_Layer: 0
   m_Name: StrongTower
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2081037855, guid: 0ed57770f3b0f4445a89f071df413f07, type: 3}
+  m_Sprite: {fileID: -960868711, guid: 3cb1d7c4b1b062741b5997c7d88a6c54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -149,3 +150,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6387634903927706348, guid: 86374df63fdf7f5488c6ce8feec898ab, type: 3}
   poolSize: 5
+--- !u!114 &-6461729012792392919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755075378452333383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6bd1d3009458734aae04c37544cf6a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

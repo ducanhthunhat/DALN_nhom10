@@ -17,3 +17,7 @@ MonoBehaviour:
   startingResources: 400
   startingLives: 3
   initialSpawnPosition: {x: -11, y: 1.6}
+  waves:
+  - {fileID: 11400000, guid: 272550c3a82f05e46b1a8709cdc75f6e, type: 2}
+  - {fileID: 11400000, guid: 5c370aada169460468e5fd53e967e7ab, type: 2}
+  - {fileID: 11400000, guid: 47d1e5731ccb9b44d9ea462c2d4628c3, type: 2}
