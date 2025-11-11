@@ -14,10 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Level3
   wavesToWin: 10
-  startingResources: 400
+  startingResources: 1500
   startingLives: 3
   initialSpawnPosition: {x: -11, y: 1.6}
   waves:
-  - {fileID: 11400000, guid: 272550c3a82f05e46b1a8709cdc75f6e, type: 2}
-  - {fileID: 11400000, guid: 5c370aada169460468e5fd53e967e7ab, type: 2}
-  - {fileID: 11400000, guid: 47d1e5731ccb9b44d9ea462c2d4628c3, type: 2}
+  - {fileID: 11400000, guid: 70bed601fe7d6664398750e07701d160, type: 2}
+  - {fileID: 11400000, guid: 70bed601fe7d6664398750e07701d160, type: 2}
+  - {fileID: 11400000, guid: 783e199726abafe4bb02f6098369a665, type: 2}
+  - {fileID: 11400000, guid: b5bf4120394d574458ab31747a95c608, type: 2}
+  - {fileID: 11400000, guid: 70bed601fe7d6664398750e07701d160, type: 2}
+  - {fileID: 11400000, guid: 70bed601fe7d6664398750e07701d160, type: 2}
+  - {fileID: 11400000, guid: b5bf4120394d574458ab31747a95c608, type: 2}
+  - {fileID: 11400000, guid: a3e6c51dad26f7745b0dbd54dff08b35, type: 2}
+  - {fileID: 11400000, guid: 70bed601fe7d6664398750e07701d160, type: 2}
+  - {fileID: 11400000, guid: a3e6c51dad26f7745b0dbd54dff08b35, type: 2}
+  - {fileID: 11400000, guid: 9c3627d9ef1f137458bcd5336b7ff6e3, type: 2}

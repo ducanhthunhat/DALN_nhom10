@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b9603739344894c99e9a31d1b657f5, type: 3}
   m_Name: Squid_boss
   m_EditorClassIdentifier: 
-  lives: 400
+  lives: 350
   damage: 50
   minSpeed: 0.6
   maxSpeed: 0.8

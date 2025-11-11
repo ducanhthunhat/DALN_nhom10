@@ -19,9 +19,6 @@ public class Spawner : MonoBehaviour
     private float _spawnCounter;
     private int _enemiesRemoved;
 
-    [SerializeField] private ObjectPooler orcPool;
-    [SerializeField] private ObjectPooler dragonPool;
-    [SerializeField] private ObjectPooler kaijuPool;
     [SerializeField] private ObjectPooler squidCritterPool;
     [SerializeField] private ObjectPooler squidMorphPool;
     [SerializeField] private ObjectPooler squidBossPool;
@@ -42,9 +39,6 @@ public class Spawner : MonoBehaviour
     {
         _poolDictionary = new Dictionary<EnemyType, ObjectPooler>()
         {
-            { EnemyType.Orc, orcPool},
-            { EnemyType.Dragon, dragonPool},
-            { EnemyType.Kaiju, kaijuPool},
             { EnemyType.Squid_critter, squidCritterPool},
             { EnemyType.Squid_morph, squidMorphPool},
             { EnemyType.Squid_boss, squidBossPool},
