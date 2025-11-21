@@ -251,25 +251,36 @@ public class UIController : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Camera mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-        Canvas canvas = GetComponent<Canvas>();
-        canvas.worldCamera = mainCamera;
+        var camObj = GameObject.FindWithTag("MainCamera");
+        if (camObj != null)
+        {
+            Camera mainCamera = camObj.GetComponent<Camera>();
 
-        HidePanel();
+            Canvas canvas = FindAnyObjectByType<Canvas>();
+            if (canvas != null)
+            {
+                canvas.worldCamera = mainCamera;
+            }
+        }
+
+        if (pausePanel != null) pausePanel.SetActive(false);
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
+        if (missionCompletePanel != null) missionCompletePanel.SetActive(false);
+
         _isGamePaused = false;
         _missionCompleteSoundPlayed = false;
+
         if (scene.name == "MainMenu")
         {
             HideUI();
             return;
         }
-        else
-        {
-            ShowUI();
-            HighlightSelectedSpeedButton(1f);
-            StartCoroutine(ShowObjectiveText($"Survive {LevelManager.Instance.CurrentLevel.wavesToWin} waves"));
-        }
+
+        ShowUI();
+        HighlightSelectedSpeedButton(1f);
+        StartCoroutine(ShowObjectiveText($"Survive {LevelManager.Instance.CurrentLevel.wavesToWin} waves"));
     }
+
     private IEnumerator ShowObjectiveText(string message)
     {
         objectiveText.text = $"Survive {LevelManager.Instance.CurrentLevel.wavesToWin} waves";
